@@ -1,0 +1,26 @@
+﻿  camera.cpp
+  shader.cpp
+E:\ddl\opengl\GLRender\src\util\shader.cpp(30,19): warning C4244: “初始化”: 从“std::streamoff”转换到“size_t”，可能丢失数据
+  texture.cpp
+  正在生成代码...
+shader.obj : error LNK2001: 无法解析的外部符号 _glad_glAttachShader
+shader.obj : error LNK2001: 无法解析的外部符号 _glad_glCompileShader
+shader.obj : error LNK2001: 无法解析的外部符号 _glad_glCreateProgram
+shader.obj : error LNK2001: 无法解析的外部符号 _glad_glCreateShader
+shader.obj : error LNK2001: 无法解析的外部符号 _glad_glGetProgramiv
+shader.obj : error LNK2001: 无法解析的外部符号 _glad_glGetProgramInfoLog
+shader.obj : error LNK2001: 无法解析的外部符号 _glad_glGetShaderiv
+shader.obj : error LNK2001: 无法解析的外部符号 _glad_glGetShaderInfoLog
+shader.obj : error LNK2001: 无法解析的外部符号 _glad_glLinkProgram
+shader.obj : error LNK2001: 无法解析的外部符号 _glad_glShaderSource
+texture.obj : error LNK2019: 无法解析的外部符号 _stbi_load，函数 "public: static unsigned int __cdecl TextureImporter::importTexture2D(char const *,int,int)" (?importTexture2D@TextureImporter@@SAIPBDHH@Z) 中引用了该符号
+texture.obj : error LNK2019: 无法解析的外部符号 _stbi_image_free，函数 "public: static unsigned int __cdecl TextureImporter::importTexture2D(char const *,int,int)" (?importTexture2D@TextureImporter@@SAIPBDHH@Z) 中引用了该符号
+texture.obj : error LNK2019: 无法解析的外部符号 _stbi_set_flip_vertically_on_load，函数 "public: static unsigned int __cdecl TextureImporter::importTexture2D(char const *,int,int)" (?importTexture2D@TextureImporter@@SAIPBDHH@Z) 中引用了该符号
+texture.obj : error LNK2001: 无法解析的外部符号 _glad_glTexParameteri
+texture.obj : error LNK2001: 无法解析的外部符号 _glad_glTexImage2D
+texture.obj : error LNK2001: 无法解析的外部符号 _glad_glBindTexture
+texture.obj : error LNK2001: 无法解析的外部符号 _glad_glGenTextures
+texture.obj : error LNK2001: 无法解析的外部符号 _glad_glGenerateMipmap
+MSVCRTD.lib(exe_main.obj) : error LNK2019: 无法解析的外部符号 _main，函数 "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ) 中引用了该符号
+E:\ddl\opengl\GLRender\include\glfw3\glfw3.lib : warning LNK4272: 库计算机类型“x64”与目标计算机类型“x86”冲突
+E:\ddl\opengl\GLRender\Debug\GLRender.exe : fatal error LNK1120: 19 个无法解析的外部命令
