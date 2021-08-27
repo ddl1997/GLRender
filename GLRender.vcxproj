@@ -80,8 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\ddl\opengl\GLRender\include\glfw3\include;E:\ddl\opengl\GLRender\include\glad\include;E:\ddl\opengl\GLRender\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\ddl\opengl\GLRender\include\glfw3;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)include\glfw3\include;$(SolutionDir)include\glad\include;$(SolutionDir)include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)include\glfw3;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -151,6 +151,7 @@
     <ClInclude Include="include\texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\main\main.cpp" />
     <ClCompile Include="src\util\camera.cpp" />
     <ClCompile Include="src\util\shader.cpp" />
     <ClCompile Include="src\util\texture.cpp" />

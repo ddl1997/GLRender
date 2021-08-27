@@ -1,4 +1,5 @@
-﻿  camera.cpp
+﻿  main.cpp
+  camera.cpp
   shader.cpp
   texture.cpp
   正在生成代码...
@@ -20,5 +21,4 @@ texture.obj : error LNK2001: 无法解析的外部符号 glad_glTexImage2D
 texture.obj : error LNK2001: 无法解析的外部符号 glad_glBindTexture
 texture.obj : error LNK2001: 无法解析的外部符号 glad_glGenTextures
 texture.obj : error LNK2001: 无法解析的外部符号 glad_glGenerateMipmap
-MSVCRTD.lib(exe_main.obj) : error LNK2019: 无法解析的外部符号 main，函数 "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ) 中引用了该符号
-E:\ddl\opengl\GLRender\x64\Debug\GLRender.exe : fatal error LNK1120: 19 个无法解析的外部命令
+D:\cg\opengl\GLRender\x64\Debug\GLRender.exe : fatal error LNK1120: 18 个无法解析的外部命令

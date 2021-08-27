@@ -47,5 +47,8 @@
     <ClCompile Include="src\util\texture.cpp">
       <Filter>源文件\src\util</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\main.cpp">
+      <Filter>源文件\src\main</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
