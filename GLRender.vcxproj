@@ -153,6 +153,8 @@
   <ItemGroup>
     <ClCompile Include="src\main\main.cpp" />
     <ClCompile Include="src\util\camera.cpp" />
+    <ClCompile Include="src\util\glad.c" />
+    <ClCompile Include="src\util\image.cpp" />
     <ClCompile Include="src\util\shader.cpp" />
     <ClCompile Include="src\util\texture.cpp" />
   </ItemGroup>

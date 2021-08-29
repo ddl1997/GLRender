@@ -50,5 +50,11 @@
     <ClCompile Include="src\main\main.cpp">
       <Filter>源文件\src\main</Filter>
     </ClCompile>
+    <ClCompile Include="src\util\glad.c">
+      <Filter>源文件\src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\image.cpp">
+      <Filter>源文件\src\util</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
