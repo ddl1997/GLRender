@@ -18,7 +18,7 @@ const std::string ShaderBaseDir = "resource/shader";
 class Shader
 {
 private:
-    unsigned int id;
+    GLuint id;
 
 public:
     // constructor generates the shader

@@ -14,4 +14,15 @@ public:
     static GLuint importTexture2D(const char* filepath, GLint level, GLint border);
 };
 
+enum TextureType {
+    Diffuse = 0,
+    Specular = 1
+};
+
+struct Texture {
+    GLuint id;
+    TextureType type;
+    std::string path;
+};
+
 #endif
