@@ -36,6 +36,12 @@
     <ClInclude Include="include\texture.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\mesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\camera.cpp">
@@ -54,6 +60,12 @@
       <Filter>源文件\src\util</Filter>
     </ClCompile>
     <ClCompile Include="src\util\image.cpp">
+      <Filter>源文件\src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\mesh.cpp">
+      <Filter>源文件\src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\model.cpp">
       <Filter>源文件\src\util</Filter>
     </ClCompile>
   </ItemGroup>

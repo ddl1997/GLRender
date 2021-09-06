@@ -80,8 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)include\glfw3\include;$(SolutionDir)include\glad\include;$(SolutionDir)include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)include\glfw3;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)include;$(SolutionDir)include\glfw3\include;$(SolutionDir)include\glad\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib;$(SolutionDir)include\glfw3;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -125,7 +125,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,6 +146,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\camera.h" />
+    <ClInclude Include="include\mesh.h" />
+    <ClInclude Include="include\model.h" />
     <ClInclude Include="include\shader.h" />
     <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="include\texture.h" />
@@ -155,6 +157,8 @@
     <ClCompile Include="src\util\camera.cpp" />
     <ClCompile Include="src\util\glad.c" />
     <ClCompile Include="src\util\image.cpp" />
+    <ClCompile Include="src\util\mesh.cpp" />
+    <ClCompile Include="src\util\model.cpp" />
     <ClCompile Include="src\util\shader.cpp" />
     <ClCompile Include="src\util\texture.cpp" />
   </ItemGroup>

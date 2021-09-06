@@ -1,6 +1,10 @@
 ﻿  main.cpp
   camera.cpp
   image.cpp
+  mesh.cpp
+E:\ddl\opengl\GLRender\src\util\mesh.cpp(54,57): warning C4244: “参数”: 从“GLuint”转换到“float”，可能丢失数据
+E:\ddl\opengl\GLRender\src\util\mesh.cpp(61,68): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
+  model.cpp
   shader.cpp
   texture.cpp
   正在生成代码...
