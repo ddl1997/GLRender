@@ -4,6 +4,7 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include "shader.h"
+#include <map>
 
 struct ModelVertex {
     glm::vec3 Position;
@@ -16,9 +17,9 @@ public:
     /*  网格数据  */
     std::vector<ModelVertex> vertices;
     std::vector<GLuint> indices;
-    std::vector<Texture> textures;
+    std::map<std::string, Texture> textures;
     /*  函数  */
-    Mesh(std::vector<ModelVertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+    Mesh(std::vector<ModelVertex> vertices, std::vector<unsigned int> indices, std::map<std::string, Texture> textures);
     void Draw(Shader shader);
 private:
     /*  渲染数据  */

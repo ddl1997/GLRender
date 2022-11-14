@@ -4,17 +4,17 @@
 void Camera::ProcessKeyboard(Movement direction, float deltaTime)
 {
     float velocity = MovementSpeed * deltaTime;
-    if (direction == FORWARD)
+    if (direction == Movement::FORWARD)
         Position += Front * velocity;
-    if (direction == BACKWARD)
+    if (direction == Movement::BACKWARD)
         Position -= Front * velocity;
-    if (direction == LEFT)
+    if (direction == Movement::LEFT)
         Position -= Right * velocity;
-    if (direction == RIGHT)
+    if (direction == Movement::RIGHT)
         Position += Right * velocity;
-    if (direction == UP)
+    if (direction == Movement::UP)
         Position += WorldUp * velocity; // 在世界坐标系下的上升
-    if (direction == DOWN)
+    if (direction == Movement::DOWN)
         Position -= WorldUp * velocity; // 在世界坐标系下的下降
     //Position.y = 0.0f; // <-- this one-liner keeps the user at the ground level (xz plane)
 }

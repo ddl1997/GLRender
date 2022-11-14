@@ -33,7 +33,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
     std::vector<ModelVertex> vertices;
     std::vector<unsigned int> indices;
-    std::vector<Texture> textures;
+    std::map<std::string, Texture> textures;
 
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
@@ -74,31 +74,31 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     if (mesh->mMaterialIndex >= 0)
     {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-        std::vector<Texture> diffuseMaps = loadMaterialTextures(material,
-            aiTextureType_DIFFUSE, Diffuse);
-        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        std::vector<Texture> specularMaps = loadMaterialTextures(material,
-            aiTextureType_SPECULAR, Specular);
-        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+        loadMaterialTextures(material, aiTextureType_DIFFUSE, TextureType::Diffuse, textures);
+        //textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+        loadMaterialTextures(material, aiTextureType_SPECULAR, TextureType::Specular, textures);
+        //textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     }
 
     return Mesh(vertices, indices, textures);
 }
 
-std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType aiType, TextureType type)
+void Model::loadMaterialTextures(aiMaterial* mat, aiTextureType aiType, TextureType type, std::map<std::string, Texture> textures)
 {
-    std::vector<Texture> textures;
     for (unsigned int i = 0; i < mat->GetTextureCount(aiType); i++)
     {
         aiString str;
         mat->GetTexture(aiType, i, &str);
         std::string filename = str.C_Str();
         std::string path = directory + "/" + filename;
-        Texture texture;
-        texture.id = TextureImporter::importTexture2D(path.c_str(), 0, 0);
-        texture.type = type;
-        texture.path = path;
-        textures.push_back(texture);
+        std::map<std::string, Texture>::iterator iter = textures.find(path);
+        if (iter == textures.end())
+        {
+            Texture texture;
+            texture.id = TextureImporter::importTexture2D(path.c_str(), 0, 0);
+            texture.type = type;
+            texture.path = path;
+            textures[path] = texture;
+        }
     }
-    return textures;
 }

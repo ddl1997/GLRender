@@ -1,6 +1,6 @@
 #include "mesh.h"
 
-Mesh::Mesh(std::vector<ModelVertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures)
+Mesh::Mesh(std::vector<ModelVertex> vertices, std::vector<GLuint> indices, std::map<std::string, Texture> textures)
 {
     this->vertices = vertices;
     this->indices = indices;
@@ -41,18 +41,23 @@ void Mesh::Draw(Shader shader)
 {
     GLuint diffuseNr = 0;
     GLuint specularNr = 0;
-    for (GLuint i = 0; i < textures.size(); i++)
+
+    int i = 0;
+    std::map<std::string, Texture>::iterator iter = textures.begin();
+    std::map<std::string, Texture>::iterator end = textures.end();
+    for (; iter != end; iter++, i++)
     {
         glActiveTexture(GL_TEXTURE0 + i); // 在绑定之前激活相应的纹理单元
         // 获取纹理序号
         std::string number;
-        if (textures[i].type == Diffuse)
+        Texture t = (*iter).second;
+        if (t.type == TextureType::Diffuse)
             number = "diffuse" + std::to_string(diffuseNr++);
-        else if (textures[i].type == Specular)
+        else if (t.type == TextureType::Specular)
             number = "specular" + std::to_string(specularNr++);
 
-        shader.setFloat(("material." + number).c_str(), i);
-        glBindTexture(GL_TEXTURE_2D, textures[i].id);
+        shader.setInt(("material." + number).c_str(), i);
+        glBindTexture(GL_TEXTURE_2D, t.id);
     }
     glActiveTexture(GL_TEXTURE0);
 

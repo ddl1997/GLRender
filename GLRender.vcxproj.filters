@@ -16,31 +16,34 @@
     <Filter Include="源文件\src">
       <UniqueIdentifier>{335c8469-dd34-4df6-a5ff-c55b0d851471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\src\main">
-      <UniqueIdentifier>{16704b0f-37d1-493c-803a-545a4532c48d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\src\util">
       <UniqueIdentifier>{2c6a7711-7ba4-4f62-95ec-e444a5ac214d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\util">
+      <UniqueIdentifier>{ca84eb6e-f4e8-4a9e-b41a-8ec3a75e1c61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\camera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\shader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\stb_image.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\texture.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="src\util\camera.h">
+      <Filter>头文件\util</Filter>
     </ClInclude>
-    <ClInclude Include="include\mesh.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="src\util\light.h">
+      <Filter>头文件\util</Filter>
     </ClInclude>
-    <ClInclude Include="include\model.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="src\util\mesh.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\model.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\shader.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\texture.h">
+      <Filter>头文件\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -53,12 +56,6 @@
     <ClCompile Include="src\util\texture.cpp">
       <Filter>源文件\src\util</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\main.cpp">
-      <Filter>源文件\src\main</Filter>
-    </ClCompile>
-    <ClCompile Include="src\util\glad.c">
-      <Filter>源文件\src\util</Filter>
-    </ClCompile>
     <ClCompile Include="src\util\image.cpp">
       <Filter>源文件\src\util</Filter>
     </ClCompile>
@@ -67,6 +64,12 @@
     </ClCompile>
     <ClCompile Include="src\util\model.cpp">
       <Filter>源文件\src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>源文件\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glad.c">
+      <Filter>源文件\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

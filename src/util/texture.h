@@ -14,7 +14,7 @@ public:
     static GLuint importTexture2D(const char* filepath, GLint level, GLint border);
 };
 
-enum TextureType {
+enum class TextureType {
     Diffuse = 0,
     Specular = 1
 };
