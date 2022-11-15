@@ -19,10 +19,23 @@ enum class TextureType {
     Specular = 1
 };
 
-struct Texture {
+class Texture {
+private:
     GLuint id;
-    TextureType type;
     std::string path;
+
+public:
+    TextureType type;
+
+    Texture() : id(0) {}
+
+    Texture(std::string filepath)
+    {
+        id = TextureImporter::importTexture2D(filepath.c_str(), 0, 0);
+        path = filepath;
+    }
+
+    GLuint getId() { return id; }
 };
 
 #endif

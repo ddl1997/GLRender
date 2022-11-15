@@ -1,6 +1,6 @@
 // GLFW
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include "util/camera.h"
 #include "util/shader.h"
 #include "util/texture.h"
@@ -8,10 +8,10 @@
 const GLuint SCR_WIDTH = 800, SCR_HEIGHT = 600;
 
 // Function prototypes
-//void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
-//void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-//void Do_Movement();
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void Do_Movement();
 //GLuint loadTexture(GLchar* path);
 void RenderQuad();
 
@@ -32,6 +32,12 @@ int main()
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", nullptr, nullptr); // Windowed
+    if (window == NULL)
+    {
+        std::cout << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        return -1;
+    }
     glfwMakeContextCurrent(window);
 
     // Set the required callback functions
@@ -42,7 +48,12 @@ int main()
     // Options
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    
+    // glad
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return -1;
+    }
 
     // Define the viewport dimensions
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -54,8 +65,8 @@ int main()
     Shader shader("normal_mapping", GLSL_VERTEX | GLSL_FRAGMENT);
 
     // Load textures
-    GLuint diffuseMap = loadTexture("../../../resources/textures/brickwall.jpg");
-    GLuint normalMap = loadTexture("../../../resources/textures/brickwall_normal.jpg");
+    Texture diffuseMap("resources/textures/brickwall.jpg");
+    Texture normalMap("resources/textures/brickwall_normal.jpg");
 
     // Set texture units 
     shader.use();
@@ -76,7 +87,7 @@ int main()
         // Check and call events
         glfwPollEvents();
         //Do_Movement();
-        camera.
+        Do_Movement();
 
         // Clear the colorbuffer
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -89,19 +100,19 @@ int main()
         shader.setMat4("view", view);
         shader.setMat4("projection", projection);
         // Render normal-mapped quad
-        glm::mat4 model;
-        model = glm::rotate(model, (GLfloat)glfwGetTime() * -10, glm::normalize(glm::vec3(1.0, 0.0, 1.0))); // Rotates the quad to show normal mapping works in all directions
+        glm::mat4 model = glm::mat4(1.0f);
+        //model = glm::rotate(model, (GLfloat)glfwGetTime() * -10, glm::normalize(glm::vec3(1.0, 0.0, 1.0))); // Rotates the quad to show normal mapping works in all directions
         shader.setMat4("model", model);
         shader.setVec3("lightPos", lightPos);
         shader.setVec3("viewPos", camera.GetPosition());
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, diffuseMap);
+        glBindTexture(GL_TEXTURE_2D, diffuseMap.getId());
         glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, normalMap);
+        glBindTexture(GL_TEXTURE_2D, normalMap.getId());
         RenderQuad();
 
         // render light source (simply re-renders a smaller plane at the light's position for debugging/visualization)
-        model = glm::mat4();
+        model = glm::mat4(1.0f);
         model = glm::translate(model, lightPos);
         model = glm::scale(model, glm::vec3(0.1f));
         shader.setMat4("model", model);
@@ -233,64 +244,64 @@ void RenderQuad()
 //    return textureID;
 //}
 
-//#pragma region "User input"
-//
-//bool keys[1024];
-//bool keysPressed[1024];
-//// Moves/alters the camera positions based on user input
-//void Do_Movement()
-//{
-//    // Camera controls
-//    if (keys[GLFW_KEY_W])
-//        camera.ProcessKeyboard(FORWARD, deltaTime);
-//    if (keys[GLFW_KEY_S])
-//        camera.ProcessKeyboard(BACKWARD, deltaTime);
-//    if (keys[GLFW_KEY_A])
-//        camera.ProcessKeyboard(LEFT, deltaTime);
-//    if (keys[GLFW_KEY_D])
-//        camera.ProcessKeyboard(RIGHT, deltaTime);
-//}
-//
-//// Is called whenever a key is pressed/released via GLFW
-//void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
-//{
-//    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-//        glfwSetWindowShouldClose(window, GL_TRUE);
-//
-//    if (key >= 0 && key <= 1024)
-//    {
-//        if (action == GLFW_PRESS)
-//            keys[key] = true;
-//        else if (action == GLFW_RELEASE)
-//        {
-//            keys[key] = false;
-//            keysPressed[key] = false;
-//        }
-//    }
-//}
-//
-//GLfloat lastX = 400, lastY = 300;
-//bool firstMouse = true;
-//// Moves/alters the camera positions based on user input
-//void mouse_callback(GLFWwindow* window, double xpos, double ypos)
-//{
-//    if (firstMouse)
-//    {
-//        lastX = xpos;
-//        lastY = ypos;
-//        firstMouse = false;
-//    }
-//
-//    GLfloat xoffset = xpos - lastX;
-//    GLfloat yoffset = lastY - ypos;
-//
-//    lastX = xpos;
-//    lastY = ypos;
-//
-//    camera.ProcessMouseMovement(xoffset, yoffset);
-//}
-//
-//void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-//{
-//    camera.ProcessMouseScroll(yoffset);
-//}
+#pragma region "User input"
+
+bool keys[1024];
+bool keysPressed[1024];
+// Moves/alters the camera positions based on user input
+void Do_Movement()
+{
+    // Camera controls
+    if (keys[GLFW_KEY_W])
+        camera.ProcessKeyboard(Movement::FORWARD, deltaTime);
+    if (keys[GLFW_KEY_S])
+        camera.ProcessKeyboard(Movement::BACKWARD, deltaTime);
+    if (keys[GLFW_KEY_A])
+        camera.ProcessKeyboard(Movement::LEFT, deltaTime);
+    if (keys[GLFW_KEY_D])
+        camera.ProcessKeyboard(Movement::RIGHT, deltaTime);
+}
+
+// Is called whenever a key is pressed/released via GLFW
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+{
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GL_TRUE);
+
+    if (key >= 0 && key <= 1024)
+    {
+        if (action == GLFW_PRESS)
+            keys[key] = true;
+        else if (action == GLFW_RELEASE)
+        {
+            keys[key] = false;
+            keysPressed[key] = false;
+        }
+    }
+}
+
+GLfloat lastX = 400, lastY = 300;
+bool firstMouse = true;
+// Moves/alters the camera positions based on user input
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    if (firstMouse)
+    {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+
+    GLfloat xoffset = xpos - lastX;
+    GLfloat yoffset = lastY - ypos;
+
+    lastX = xpos;
+    lastY = ypos;
+
+    camera.ProcessMouseMovement(xoffset, yoffset);
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    camera.ProcessMouseScroll(yoffset);
+}

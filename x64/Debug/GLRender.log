@@ -1,12 +1,25 @@
 ﻿  main.cpp
-  camera.cpp
-  image.cpp
-  mesh.cpp
-E:\ddl\opengl\GLRender\src\util\mesh.cpp(54,57): warning C4244: “参数”: 从“GLuint”转换到“float”，可能丢失数据
-E:\ddl\opengl\GLRender\src\util\mesh.cpp(61,68): warning C4267: “参数”: 从“size_t”转换到“GLsizei”，可能丢失数据
-  model.cpp
-  shader.cpp
-  texture.cpp
-  正在生成代码...
-  glad.c
+E:\ddl\opengl\GLRender\src\main.cpp(83,30): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
+E:\ddl\opengl\GLRender\src\main.cpp(290,17): warning C4244: “=”: 从“double”转换到“GLfloat”，可能丢失数据
+E:\ddl\opengl\GLRender\src\main.cpp(291,17): warning C4244: “=”: 从“double”转换到“GLfloat”，可能丢失数据
+E:\ddl\opengl\GLRender\src\main.cpp(295,21): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
+E:\ddl\opengl\GLRender\src\main.cpp(296,21): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
+E:\ddl\opengl\GLRender\src\main.cpp(298,13): warning C4244: “=”: 从“double”转换到“GLfloat”，可能丢失数据
+E:\ddl\opengl\GLRender\src\main.cpp(299,13): warning C4244: “=”: 从“double”转换到“GLfloat”，可能丢失数据
+E:\ddl\opengl\GLRender\src\main.cpp(306,31): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+glfw3.lib(init.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(init.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(window.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(window.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(input.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(input.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(context.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(win32_init.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_init.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(win32_monitor.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_monitor.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(win32_time.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_time.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(win32_thread.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_thread.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(monitor.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(monitor.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(vulkan.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(vulkan.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(win32_window.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_window.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(win32_joystick.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_joystick.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(wgl_context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(wgl_context.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(egl_context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(egl_context.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(osmesa_context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(osmesa_context.obj)”或在“E:\ddl\opengl\GLRender\x64\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
   GLRender.vcxproj -> E:\ddl\opengl\GLRender\x64\Debug\GLRender.exe

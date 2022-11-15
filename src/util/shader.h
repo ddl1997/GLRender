@@ -13,7 +13,7 @@
 #include <sstream>
 #include <iostream>
 
-const std::string ShaderBaseDir = "resource/shader";
+const std::string ShaderBaseDir = "resources/shaders";
 
 class Shader
 {

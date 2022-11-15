@@ -94,10 +94,8 @@ void Model::loadMaterialTextures(aiMaterial* mat, aiTextureType aiType, TextureT
         std::map<std::string, Texture>::iterator iter = textures.find(path);
         if (iter == textures.end())
         {
-            Texture texture;
-            texture.id = TextureImporter::importTexture2D(path.c_str(), 0, 0);
+            Texture texture(path);
             texture.type = type;
-            texture.path = path;
             textures[path] = texture;
         }
     }
