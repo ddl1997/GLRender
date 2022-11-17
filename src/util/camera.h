@@ -1,8 +1,7 @@
-#pragma once
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include <glad/glad.h>
+#include "global.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <vector>
@@ -49,6 +48,8 @@ private:
     float MouseSensitivity; // 鼠标控制视角移动的灵敏度
     float Zoom;
 
+    float width, height;
+
 public:
     // constructor with vectors
     Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH, float near = NEAR, float far = FAR) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
@@ -60,6 +61,7 @@ public:
         Near = near;
         Far = far;
         updateCameraVectors();
+        initScreenSize();
     }
 
     // constructor with scalar values
@@ -70,6 +72,7 @@ public:
         Yaw = yaw;
         Pitch = pitch;
         updateCameraVectors();
+        initScreenSize();
     }
 
     glm::vec3 GetPosition()
@@ -77,13 +80,17 @@ public:
         return Position;
     }
 
+    void setWidth(float width) { this->width = width; }
+
+    void setHeight(float height) { this->height = height; }
+
     // returns the view matrix calculated using Euler Angles and the LookAt Matrix
     glm::mat4 GetViewMatrix()
     {
         return glm::lookAt(Position, Position + Front, WorldUp);
     }
 
-    glm::mat4 GetPerspectiveProjectionMatrix(float width, float height)
+    glm::mat4 GetPerspectiveProjectionMatrix()
     {
         return glm::perspective(Zoom, width / height, Near, Far);
     }
@@ -107,5 +114,11 @@ private:
     void updateCameraVectors();
 
     glm::mat4 calculate_lookAt_matrix(glm::vec3 position, glm::vec3 target, glm::vec3 worldUp);
+
+    void initScreenSize()
+    {
+        width = WIDTH;
+        height = HEIGHT;
+    }
 };
 #endif

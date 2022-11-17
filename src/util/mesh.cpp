@@ -37,7 +37,7 @@ void Mesh::setupMesh()
     glBindVertexArray(0);
 }
 
-void Mesh::Draw(Shader shader)
+void Mesh::draw(Shader shader)
 {
     GLuint diffuseNr = 0;
     GLuint specularNr = 0;

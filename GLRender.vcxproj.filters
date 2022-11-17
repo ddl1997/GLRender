@@ -45,6 +45,12 @@
     <ClInclude Include="src\util\texture.h">
       <Filter>头文件\util</Filter>
     </ClInclude>
+    <ClInclude Include="src\util\cubeMap.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\global.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\camera.cpp">

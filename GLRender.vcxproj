@@ -147,6 +147,8 @@
   <ItemGroup>
     <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="src\util\camera.h" />
+    <ClInclude Include="src\util\cubeMap.h" />
+    <ClInclude Include="src\util\global.h" />
     <ClInclude Include="src\util\light.h" />
     <ClInclude Include="src\util\mesh.h" />
     <ClInclude Include="src\util\model.h" />

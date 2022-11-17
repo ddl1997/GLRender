@@ -1,9 +1,9 @@
 // GLFW
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "util/global.h"
 #include "util/camera.h"
 #include "util/shader.h"
 #include "util/texture.h"
+#include "util/cubeMap.h"
 // Properties
 const GLuint SCR_WIDTH = 800, SCR_HEIGHT = 600;
 
@@ -61,6 +61,9 @@ int main()
     // Setup some OpenGL options
     glEnable(GL_DEPTH_TEST);
 
+    camera.setWidth((float)SCR_WIDTH);
+    camera.setHeight((float)SCR_HEIGHT);
+
     // Setup and compile our shaders
     Shader shader("normal_mapping", GLSL_VERTEX | GLSL_FRAGMENT);
 
@@ -75,6 +78,17 @@ int main()
 
     // Light position
     glm::vec3 lightPos(0.5f, 1.0f, 0.3f);
+
+    std::vector<std::string> faces
+    {
+        "resources/textures/skybox/right.jpg",
+        "resources/textures/skybox/left.jpg",
+        "resources/textures/skybox/top.jpg",
+        "resources/textures/skybox/bottom.jpg",
+        "resources/textures/skybox/front.jpg",
+        "resources/textures/skybox/back.jpg"
+    };
+    CubeMap skybox(faces);
 
     // Game loop
     while (!glfwWindowShouldClose(window))
@@ -96,7 +110,7 @@ int main()
         // Configure view/projection matrices
         shader.use();
         glm::mat4 view = camera.GetViewMatrix();
-        glm::mat4 projection = camera.GetPerspectiveProjectionMatrix((float)SCR_WIDTH, (float)SCR_HEIGHT);
+        glm::mat4 projection = camera.GetPerspectiveProjectionMatrix();
         shader.setMat4("view", view);
         shader.setMat4("projection", projection);
         // Render normal-mapped quad
@@ -118,8 +132,11 @@ int main()
         shader.setMat4("model", model);
         RenderQuad();
 
+        skybox.draw(&camera);
+
         // Swap the buffers
         glfwSwapBuffers(window);
+        glfwPollEvents();
     }
 
     glfwTerminate();

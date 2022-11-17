@@ -9,6 +9,7 @@
 struct ModelVertex {
     glm::vec3 Position;
     glm::vec3 Normal;
+    glm::vec3 Tangent;
     glm::vec2 TexCoords;
 };
 
@@ -20,7 +21,7 @@ public:
     std::map<std::string, Texture> textures;
     /*  º¯Êý  */
     Mesh(std::vector<ModelVertex> vertices, std::vector<unsigned int> indices, std::map<std::string, Texture> textures);
-    void Draw(Shader shader);
+    void draw(Shader shader);
 private:
     /*  äÖÈ¾Êý¾Ý  */
     GLuint VAO, VBO, EBO;
