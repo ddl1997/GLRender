@@ -75,7 +75,7 @@ public:
         initScreenSize();
     }
 
-    glm::vec3 GetPosition()
+    glm::vec3 getPosition()
     {
         return Position;
     }
@@ -92,7 +92,7 @@ public:
 
     glm::mat4 GetPerspectiveProjectionMatrix()
     {
-        return glm::perspective(Zoom, width / height, Near, Far);
+        return glm::perspective(glm::radians(Zoom), width / height, Near, Far);
     }
 
     // processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)

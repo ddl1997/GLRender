@@ -118,7 +118,7 @@ int main()
         //model = glm::rotate(model, (GLfloat)glfwGetTime() * -10, glm::normalize(glm::vec3(1.0, 0.0, 1.0))); // Rotates the quad to show normal mapping works in all directions
         shader.setMat4("model", model);
         shader.setVec3("lightPos", lightPos);
-        shader.setVec3("viewPos", camera.GetPosition());
+        shader.setVec3("viewPos", camera.getPosition());
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap.getId());
         glActiveTexture(GL_TEXTURE1);
