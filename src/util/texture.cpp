@@ -34,11 +34,39 @@ GLuint TextureImporter::importTexture2D(const char* filepath, GLint level, GLint
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, format == GL_RGBA ? GL_CLAMP_TO_EDGE : GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
         glBindTexture(GL_TEXTURE_2D, 0);
     }
     else
     {
         std::cout << "Failed to load texture: " << filepath << std::endl;
+    }
+    stbi_image_free(data);
+    return id;
+}
+
+GLuint TextureImporter::importHDR(const char* filepath)
+{
+    stbi_set_flip_vertically_on_load(true);
+    int width, height, nrComponents;
+    float* data = stbi_loadf(filepath, &width, &height, &nrComponents, 0);
+    GLuint id;
+    glGenTextures(1, &id);
+    if (data)
+    {
+        glBindTexture(GL_TEXTURE_2D, id);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, width, height, 0, GL_RGB, GL_FLOAT, data);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+    else
+    {
+        std::cout << "Failed to load HDR image." << std::endl;
     }
     stbi_image_free(data);
     return id;

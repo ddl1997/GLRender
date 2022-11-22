@@ -124,7 +124,7 @@ int main()
     shader.use();
     shader.setMat4("projection", camera.GetPerspectiveProjectionMatrix());
 
-    std::vector<std::string> faces
+    /*std::vector<std::string> faces
     {
         "resources/textures/skybox/right.jpg",
         "resources/textures/skybox/left.jpg",
@@ -133,10 +133,13 @@ int main()
         "resources/textures/skybox/front.jpg",
         "resources/textures/skybox/back.jpg"
     };
-    CubeMap skybox(faces);
+    CubeMap skybox(faces);*/
+
+    CubeMap skybox("resources/textures/HDR/GrandCanyon_C_YumaPoint/GCanyon_C_YumaPoint_3k.hdr");
 
     // render loop
     // -----------
+    glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
     while (!glfwWindowShouldClose(window))
     {
         // per-frame time logic
