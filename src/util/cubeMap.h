@@ -31,7 +31,7 @@ public:
     }
 
     // 从hdr文件中加载cube map
-    CubeMap(std::string HDRFilePath)
+    CubeMap(std::string HDRFilePath, float downSampleSize = 1.0)
     {
         Texture hdrTexture(HDRFilePath, TextureType::HDR);
         GLuint captureFBO, captureRBO;
@@ -45,17 +45,21 @@ public:
 
         glGenTextures(1, &id);
         glBindTexture(GL_TEXTURE_CUBE_MAP, id);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_BASE_LEVEL, 0);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, 5);
         for (unsigned int i = 0; i < 6; ++i)
         {
             // note that we store each face with 16 bit floating point values
             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F,
                 512, 512, 0, GL_RGB, GL_FLOAT, nullptr);
         }
+        
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 
         glm::mat4 captureProjection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 10.0f);
         glm::mat4 captureViews[] =
@@ -73,6 +77,7 @@ public:
         equirectangularToCubemapShader.use();
         equirectangularToCubemapShader.setInt("equirectangularMap", 0);
         equirectangularToCubemapShader.setMat4("projection", captureProjection);
+        equirectangularToCubemapShader.setFloat("downSampleSize", downSampleSize);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, hdrTexture.getId());
 

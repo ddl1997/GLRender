@@ -86,16 +86,17 @@ int main()
     shader.setInt("metallicMap", 2);
     shader.setInt("roughnessMap", 3);
     shader.setInt("aoMap", 4);
+    shader.setInt("irradianceMap", 5);
 
-    Texture albedoMap("resources/textures/rustediron/albedo.png");
-    Texture normalMap("resources/textures/rustediron/normal.png");
-    Texture metallicMap("resources/textures/rustediron/metallic.png");
-    Texture roughnessMap("resources/textures/rustediron/roughness.png");
-    Texture aoMap("resources/textures/rustediron/ao.png");
+    Texture albedoMap("resources/textures/test/albedo.png");
+    Texture normalMap("resources/textures/test/normal.png");
+    Texture metallicMap("resources/textures/test/metallic.png");
+    Texture roughnessMap("resources/textures/test/roughness.png");
+    Texture aoMap("resources/textures/test/ao.png");
 
     // lights
     // ------
-    /*glm::vec3 lightPositions[] = {
+    glm::vec3 lightPositions[] = {
         glm::vec3(-10.0f,  10.0f, 10.0f),
         glm::vec3(10.0f,  10.0f, 10.0f),
         glm::vec3(-10.0f, -10.0f, 10.0f),
@@ -106,13 +107,13 @@ int main()
         glm::vec3(300.0f, 300.0f, 300.0f),
         glm::vec3(300.0f, 300.0f, 300.0f),
         glm::vec3(300.0f, 300.0f, 300.0f)
-    };*/
-    glm::vec3 lightPositions[] = {
+    };
+    /*glm::vec3 lightPositions[] = {
         glm::vec3(0.0f, 0.0f, 10.0f),
     };
     glm::vec3 lightColors[] = {
         glm::vec3(300.0f, 300.0f, 300.0f)
-    };
+    };*/
     int nrRows = 7;
     int nrColumns = 7;
     float spacing = 2.5;
@@ -136,6 +137,7 @@ int main()
     CubeMap skybox(faces);*/
 
     CubeMap skybox("resources/textures/HDR/GrandCanyon_C_YumaPoint/GCanyon_C_YumaPoint_3k.hdr");
+    CubeMap indirectIBL("resources/textures/HDR/GrandCanyon_C_YumaPoint/GCanyon_C_YumaPoint_3k.hdr");
 
     // render loop
     // -----------
@@ -172,18 +174,20 @@ int main()
         glBindTexture(GL_TEXTURE_2D, roughnessMap.getId());
         glActiveTexture(GL_TEXTURE4);
         glBindTexture(GL_TEXTURE_2D, aoMap.getId());
+        glActiveTexture(GL_TEXTURE5);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, indirectIBL.getId());
 
         // render rows*column number of spheres with varying metallic/roughness values scaled by rows and columns respectively
         glm::mat4 model = glm::mat4(1.0f);
-        shader.setVec3("albedo", 0.5f, 0.0f, 0.0f);
+        shader.setVec3("_albedo", 0.5f, 0.0f, 0.0f);
         for (int row = 0; row < nrRows; ++row)
         {
-            shader.setFloat("metallic", (float)row / (float)nrRows);
+            shader.setFloat("_metallic", (float)row / (float)nrRows);
             for (int col = 0; col < nrColumns; ++col)
             {
                 // we clamp the roughness to 0.05 - 1.0 as perfectly smooth surfaces (roughness of 0.0) tend to look a bit off
                 // on direct lighting.
-                shader.setFloat("roughness", glm::clamp((float)col / (float)nrColumns, 0.05f, 1.0f));
+                shader.setFloat("_roughness", glm::clamp((float)col / (float)nrColumns, 0.05f, 1.0f));
 
                 model = glm::mat4(1.0f);
                 model = glm::translate(model, glm::vec3(

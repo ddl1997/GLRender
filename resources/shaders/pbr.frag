@@ -1,4 +1,4 @@
-#version 330 core
+#version 430 core
 out vec4 FragColor;
 in vec2 TexCoords;
 in vec3 WorldPos;
@@ -6,9 +6,9 @@ in vec3 Normal;
 
 uniform vec3 camPos;
 
-// uniform vec3 albedo;
-// uniform float metallic;
-// uniform float roughness;
+uniform vec3 _albedo;
+uniform float _metallic;
+uniform float _roughness;
 // uniform float ao;
 uniform sampler2D albedoMap;
 uniform sampler2D normalMap;
@@ -16,14 +16,16 @@ uniform sampler2D metallicMap;
 uniform sampler2D roughnessMap;
 uniform sampler2D aoMap;
 
+uniform samplerCube irradianceMap;
+
 uniform vec3 lightPositions[4];
 uniform vec3 lightColors[4];
 
 const float PI = 3.14159265359;
 
-vec3 fresnelSchlick(float cosTheta, vec3 F0)
+vec3 fresnelSchlick(float cosTheta, vec3 F0, float roughness)
 {
-    return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
+    return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(1.0 - cosTheta, 5.0);
 }
 
 float DistributionGGX(vec3 N, vec3 H, float roughness)
@@ -79,10 +81,14 @@ vec3 getNormalFromNormalMap()
 
 void main()
 {
-    vec3 albedo = pow(texture(albedoMap, TexCoords).rgb, vec3(2.2));
     vec3 normal = getNormalFromNormalMap();
-    float metallic = texture(metallicMap, TexCoords).r;
-    float roughness = texture(roughnessMap, TexCoords).r;
+    // vec3 albedo = pow(texture(albedoMap, TexCoords).rgb, vec3(2.2));
+    // float metallic = texture(metallicMap, TexCoords).r;
+    // float roughness = texture(roughnessMap, TexCoords).r;
+
+    vec3 albedo = _albedo;
+    float metallic = _metallic;
+    float roughness = _roughness;
     float ao = texture(aoMap, TexCoords).r;
 
     vec3 N = normalize(Normal);
@@ -105,7 +111,7 @@ void main()
         float attenuation = 1.0 / (lightDis * lightDis);
         vec3 irradiance = lightColors[i] * attenuation;
 
-        vec3 F = fresnelSchlick(HdotV, F0);
+        vec3 F = fresnelSchlick(HdotV, F0, roughness);
         float NDF = DistributionGGX(N, H, roughness);
         float G = GeometrySmith(N, V, L, roughness);
 
@@ -115,14 +121,18 @@ void main()
 
         vec3 kS = F;
         vec3 kD = vec3(1.0) - kS;
-
         kD *= 1.0 - metallic;
 
-        // Lo += (kD * albedo / PI + specular) * irradiance * NdotL;
-        Lo += specular * irradiance * NdotL;
+        Lo += (kD * albedo / PI + specular) * irradiance * NdotL;
+        // Lo += specular * irradiance * NdotL;
     }
 
-    vec3 ambient = vec3(0.03) * albedo * ao;
+    vec3 kS = fresnelSchlick(NdotV, F0, roughness);
+    vec3 kD = vec3(1.0) - kS;
+    vec3 envIrrandiance = textureLod(irradianceMap, N, 4.0).rgb;
+    vec3 diffuse = envIrrandiance * albedo;
+    vec3 ambient = (kD * diffuse) * ao;
+
     vec3 color = ambient + Lo;
 
     color = color / (color + vec3(1.0));
